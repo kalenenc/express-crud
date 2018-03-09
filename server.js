@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 
 var db;
 
-MongoClient.connect('mongodb://kalene:password@ds123752.mlab.com:23752/some-good-quotes', (err, client) => {
+MongoClient.connect('mongodb-link-here', (err, client) => {
   if (err) return console.log(err)
   db = client.db('some-good-quotes'); //name of your database
   app.listen(3000, () => {
@@ -60,6 +60,16 @@ app.put('/quotes', (req, res) => {
     upsert: true
   }, (err, result) => {
     if (err) return res.send(err)
+    res.send(result)
+  })
+
+})
+
+app.delete('/quotes', (req, res) => {
+  db.collection('quotes').findOneAndDelete({name: req.body.name},
+  (err, result) => {
+    if (err) return res.send(500, err)
+    console.log('-------- Message deleted -------')
     res.send(result)
   })
 })

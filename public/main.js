@@ -1,4 +1,5 @@
-// main.js
+// PUT Request
+
 var update = document.getElementById('update')
 
 update.addEventListener('click',  () => {
@@ -18,4 +19,30 @@ update.addEventListener('click',  () => {
     console.log(data);
     window.location.reload(true);
   })
+})
+
+// Delete
+
+var del = document.getElementById('delete')
+
+del.addEventListener('click', function () {
+
+  fetch('quotes', {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'name': 'Reese!'
+    })
+  })
+  .then(res => {
+    if (res.ok) return res.json()
+  })
+  .then(data => {
+    console.log(data)
+    window.location.reload()
+
+  })
+
 })
